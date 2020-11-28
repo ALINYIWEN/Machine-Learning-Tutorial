@@ -9,9 +9,9 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, Normalizer
+from sklearn.preprocessing import StandardScaler, Normalizer # 特徵縮放有兩種
 
-# 載入 dataset
+# 載入 dataset  
 dir_data = './data/'
 data = os.path.join(dir_data, 'customer_data.csv')
 dataset = pd.read_csv(data)
@@ -34,8 +34,8 @@ y = labelencoder_y.fit_transform(y)  # 同時做擬和與轉換
 # 將數據集分為訓練集和測試集: test_size: 測試集的占比, random_state: 隨機選取數據的機率 0=一樣的結果
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0) 
 
-# 特徵縮放 Feature Scaling : 使數據的量級靠近, 避免部分數據影響過大
-Scaling_X = Normalizer()
-
+# 特徵縮放 Feature Scaling : 使數據的量級靠近, 避免部分數據影響過大 
+# 分類問題不需對 y 因變量做特徵縮放 , 回歸問題看情況做 
+Scaling_X = StandardScaler()
 X_train = Scaling_X.fit_transform(X_train)
-X_test = Scaling_X.transform(X_test)
+X_test = Scaling_X.transform(X_test)  
